@@ -31,6 +31,7 @@
     --spacing-xl: 4rem;
     
     /* Typography */
+    /* REVIEW: Graphik Arabic is not loaded in HTML - only Tajawal & Cairo are in link tags */
     --font-primary: Graphik Arabic;
     --font-secondary: 'Tajawal', sans-serif;
     
@@ -139,6 +140,7 @@ nav {
     align-items: center;
     list-style: none;
 }
+/* REVIEW: Duplicate 'a' selector - same rules repeated later with !important, causes specificity issues */
 a {
     color:black;
     text-decoration: none;
@@ -152,7 +154,7 @@ a {
     gap: 25px;
 }
 .logo img {
-    
+    /* REVIEW: "Height" should be lowercase "height" - CSS convention */
      Height: 55px;
      padding-left: 20px;
 
@@ -164,6 +166,7 @@ a {
         align-items: center;
       
     }
+    /* REVIEW: !important indicates specificity war - refactor selectors instead of forcing override */
     a {
     color:black !important;
     text-decoration: none;
@@ -180,7 +183,9 @@ a {
             padding: 15px 0;
            position: fixed;
            z-index: 999;
+           /* REVIEW: 100vw can cause horizontal scrollbar - consider width: 100% */
            width: 100vw;
+           /* REVIEW: Missing semicolon after height - invalid CSS */
            height: 88px
         }
 
@@ -311,10 +316,12 @@ a {
 
 .stat-text {
     font-size: 13px;
+    /* REVIEW: --text-light is not defined in :root */
     color: var(--text-light);
      font-family: var(--font-primary);
 }
 
+/* REVIEW: !important again - prefer semantic class or fix cascade */
 .stat-text p {
     font-size: 16px !important;
 }
@@ -342,11 +349,13 @@ a {
 }
 
 /* Paragraph */
+/* REVIEW: Hardcoded #1D1D1D - use CSS variable (e.g. --gray-color-500 or --text-dark) for consistency */
 p {
     color: #1D1D1D;
     font-size: 18px;
     font-family: Graphik Arabic;
 }
+/* REVIEW: Absolute positioning with px - brittle across breakpoints, duplicated in many media queries */
 .img-class{
     position: absolute;
     right: 120px;
@@ -358,8 +367,10 @@ p {
 
 /* ========== RESPONSIVE BREAKPOINTS ========== */
 
+/* REVIEW: 400px breakpoint is non-standard - consider 576px (sm) or 480px */
 @media (max-width: 400px) {
   .img-test {
+                /* REVIEW: !important */
                 max-width: 273px !important;
     }
     .hero-stats {
@@ -426,7 +437,7 @@ p {
 }
 .cta-title
  {
-   
+   /* REVIEW: Syntax error - missing ! before "important" */
     white-space: inherit important; 
 }
 }
@@ -557,15 +568,18 @@ p {
 }
 
 .feature-card {
+    /* REVIEW: "white" - use #fff or var if defined for consistency */
     background: white;
     border-radius: var(--radius-lg);
     padding: 2.5rem 2rem;
     text-align: center;
     transition: all var(--transition-base);
+    /* REVIEW: var(--300,...) is invalid - --300 not defined, use --gray-color-300 */
     border: 1px solid var(--300, #D0D5DD);
     position: relative;
     overflow: hidden;
     height: 100%;
+    /* REVIEW: Duplicate transition - transition declared twice in this rule */
     transform: translateY(30px);
     transition: all 0.6s ease;
 }
@@ -607,6 +621,7 @@ margin-bottom: -415px;
 }
 
 .cta-card {
+    /* REVIEW: Hardcoded color - add to :root as --cta-bg or similar */
     background-color: #091C39;
     border-radius: var(--radius-xl);
     padding: 4rem 3rem;
@@ -622,6 +637,7 @@ margin-bottom: -415px;
     transform: scale(1);
 }
 
+/* REVIEW: Hardcoded margin-left 377px - overridden with !important in media queries, brittle layout */
 .cta-avatars {
     display: flex;
     align-items: center;
@@ -729,6 +745,7 @@ margin-bottom: -415px;
    =================================== */
 .testimonials {
     padding: var(--spacing-xl) 0;
+   /* REVIEW: Hardcoded color - use var(--gray-color-200) which is same value */
    background: #F1F3F7;
 }
 
@@ -746,9 +763,11 @@ margin-bottom: -415px;
     padding: 2rem;
     box-shadow: var(--shadow-md);
     transition: all var(--transition-base);
+    /* REVIEW: "height: 100%" then "height: fit-content" - latter overwrites former, remove one */
     height: 100%;
    
     transform: translateY(30px);
+    /* REVIEW: "transition" declared twice in same rule */
     transition: all 0.6s ease;
     height: fit-content;
 }
@@ -787,6 +806,7 @@ margin-bottom: -415px;
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    /* REVIEW: --primary-light not defined in :root */
     border: 2px solid var(--primary-light);
 }
 
